@@ -6,6 +6,7 @@ import * as UserController from './controllers/UserController.js';
 import * as PostController from './controllers/PostController.js';
 import multer from 'multer';
 import handleValidationErrors from './utils/handleValidationErrors.js';
+import cors from 'cors';
 
 mongoose.connect( // подключение к базе данных MongoDB с конструкцией указанием работоспособности сервера
     'mongodb+srv://timklimenkoo:wwwwww@cluster0.pxrgfjq.mongodb.net/blog?retryWrites=true&w=majority'
@@ -30,6 +31,8 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 app.use(express.json()); // необходимм для работы с json
+
+app.use(cors()); // отключаем запреты на кросс-доменные запросы.
 
 // Проверка, необходимая для того чтобы указать маршрут на папку в которой хранятся статичные файлы
 app.use('/uploads', express.static('uploads'));
